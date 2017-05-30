@@ -1,0 +1,57 @@
+{
+  "name": "chat-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "react-google-tag-manager": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "cheerio": "^0.22.0",
+    "enzyme": "^2.7.1",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "jest": "^19.0.2",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-test-renderer": "^15.4.2",
+    "webpack": "^2.2.1",
+    "webpack-cleanup-plugin": "^0.5.1"
+  },
+  "peerDependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "scripts": {
+    "lint": "eslint ./src",
+    "test": "jest",
+    "pretest": "npm run lint",
+    "prebuild": "npm run test",
+    "build": "webpack --color"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://github.com/comparaonline/chat-component.git"
+  },
+  "keywords": [
+    "react",
+    "google tag manager",
+    "amplitude"
+  ],
+  "author": "ComparaOnline.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/comparaonline/chat-component/issues"
+  },
+  "homepage": "https://github.com/comparaonline/chat-component#readme"
+}
