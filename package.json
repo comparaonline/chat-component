@@ -1,5 +1,5 @@
 {
-  "name": "chat-component",
+  "name": "@comparaonline/chat-component",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -37,7 +37,8 @@
     "test": "jest",
     "pretest": "npm run lint",
     "prebuild": "npm run test",
-    "build": "webpack --color"
+    "build": "webpack --color",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
