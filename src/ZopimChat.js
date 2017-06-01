@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 import zopim from './scripts/zopim';
 
 class ZopimChat extends Component {
@@ -38,9 +38,7 @@ class ZopimChat extends Component {
   }
 
   render() {
-    return (
-      <span>ZopimChat</span>
-    );
+    return null;
   }
 }
 
