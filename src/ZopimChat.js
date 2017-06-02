@@ -1,7 +1,13 @@
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import zopim from './scripts/zopim';
 
 class ZopimChat extends Component {
+  constructor() {
+    super();
+
+    this.initialized = false;
+  }
+
   componentWillMount() {
     zopim(document, 'script');
   }
@@ -10,12 +16,13 @@ class ZopimChat extends Component {
     const interval = setInterval(() => {
       if (window.$zopim) {
         clearInterval(interval);
-        this.startConfig(window.$zopim.livechat);
+        this.initialize(window.$zopim);
+        this.initialized = true;
       }
     }, 100);
   }
 
-  startConfig(config) {
+  initialize(globalZopim) {
     const {
       language,
       countryName,
@@ -23,22 +30,41 @@ class ZopimChat extends Component {
       offlineFormGreetings
     } = this.props;
 
-    config.setLanguage(language);
-    config.window.setTitle(title);
-    config.offlineForm.setGreetings(offlineFormGreetings);
+    const chat = globalZopim.livechat;
 
-    config.departments.filter('');
-    config.departments.setVisitorDepartment(countryName);
+    chat.setLanguage(language);
+    chat.window.setTitle(title);
+    chat.offlineForm.setGreetings(offlineFormGreetings);
 
-    config.setOnConnected(() => {
-      config.setStatus(
-        config.departments.getDepartment(countryName).status
+    chat.departments.filter('');
+    chat.departments.setVisitorDepartment(countryName);
+
+    chat.setOnConnected(() => {
+      chat.setStatus(
+        chat.departments.getDepartment(countryName).status
       );
     });
+
+    this.hideChat = () => globalZopim(() => chat.hideAll());
+    this.showChat = () => globalZopim(() => chat.window.show());
+
+    globalZopim(() => {
+      chat.window.onHide(() => this.hideChat());
+    });
+
+    this.hideChat();
   }
 
   render() {
-    return null;
+    const chatProps = {
+      onClick: () => this.initialized && this.showChat()
+    };
+
+    return (
+      <button {...chatProps}>
+        CHAT
+      </button>
+    );
   }
 }
 
