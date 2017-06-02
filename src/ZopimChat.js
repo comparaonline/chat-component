@@ -5,9 +5,7 @@ class ZopimChat extends Component {
   constructor() {
     super();
 
-    this.isInitialized = false;
-    this.state = { isOpen: false };
-
+    this.state = { isOpen: true };
     this.onClick = this.onClick.bind(this);
   }
 
@@ -21,13 +19,12 @@ class ZopimChat extends Component {
         clearInterval(interval);
         this.countryConfig(window.$zopim);
         this.visibilityConfig(window.$zopim);
-        this.isInitialized = true;
       }
     }, 100);
   }
 
   onClick() {
-    return this.isInitialized && this.showChat();
+    return this.showChat();
   }
 
   countryConfig(globalZopim) {
