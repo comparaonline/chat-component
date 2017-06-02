@@ -5,7 +5,10 @@ class ZopimChat extends Component {
   constructor() {
     super();
 
-    this.initialized = false;
+    this.isInitialized = false;
+    this.state = { isOpen: false };
+
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
@@ -16,13 +19,18 @@ class ZopimChat extends Component {
     const interval = setInterval(() => {
       if (window.$zopim) {
         clearInterval(interval);
-        this.initialize(window.$zopim);
-        this.initialized = true;
+        this.countryConfig(window.$zopim);
+        this.visibilityConfig(window.$zopim);
+        this.isInitialized = true;
       }
     }, 100);
   }
 
-  initialize(globalZopim) {
+  onClick() {
+    return this.isInitialized && this.showChat();
+  }
+
+  countryConfig(globalZopim) {
     const {
       language,
       countryName,
@@ -44,9 +52,20 @@ class ZopimChat extends Component {
         chat.departments.getDepartment(countryName).status
       );
     });
+  }
 
-    this.hideChat = () => globalZopim(() => chat.hideAll());
-    this.showChat = () => globalZopim(() => chat.window.show());
+  visibilityConfig(globalZopim) {
+    const chat = globalZopim.livechat;
+
+    this.hideChat = () => globalZopim(() => {
+      chat.hideAll();
+      this.setState({ isOpen: false });
+    });
+
+    this.showChat = () => globalZopim(() => {
+      chat.window.show();
+      this.setState({ isOpen: true });
+    });
 
     globalZopim(() => {
       chat.window.onHide(() => this.hideChat());
@@ -56,12 +75,12 @@ class ZopimChat extends Component {
   }
 
   render() {
-    const chatProps = {
-      onClick: () => this.initialized && this.showChat()
-    };
+    if (this.state.isOpen) {
+      return null;
+    }
 
     return (
-      <button {...chatProps}>
+      <button onClick={this.onClick}>
         CHAT
       </button>
     );
