@@ -20,7 +20,7 @@ $ npm install --save comparaonline/chat-component
   />
 ```
 
-Where the possible options can be:
+Where the possible options are:
 
 * `countryName`: The full name of the country (i.e. Chile, Brasil or Colombia).
 * `language`: Two letter language ISO code (i.e `es` or `pt`).
