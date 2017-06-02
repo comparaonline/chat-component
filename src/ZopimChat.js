@@ -32,6 +32,7 @@ class ZopimChat extends Component {
       language,
       countryName,
       title,
+      conciergeTitle,
       offlineFormGreetings
     } = this.props;
 
@@ -39,6 +40,7 @@ class ZopimChat extends Component {
 
     chat.setLanguage(language);
     chat.window.setTitle(title);
+    chat.concierge.setTitle(conciergeTitle);
     chat.offlineForm.setGreetings(offlineFormGreetings);
 
     chat.departments.filter('');
@@ -88,6 +90,7 @@ ZopimChat.propTypes = {
   countryName: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  conciergeTitle: PropTypes.string.isRequired,
   offlineFormGreetings: PropTypes.string.isRequired
 };
 
