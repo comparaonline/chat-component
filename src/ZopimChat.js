@@ -71,14 +71,11 @@ class ZopimChat extends Component {
   }
 
   render() {
-    if (this.state.isOpen) {
-      return null;
-    }
-
     return (
       <div>
         {
-          React.cloneElement(this.props.children, { onClick: this.onClick })
+          !this.state.isOpen &&
+            React.cloneElement(this.props.children, { onClick: this.onClick })
         }
       </div>
     );
