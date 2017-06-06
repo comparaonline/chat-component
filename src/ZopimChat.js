@@ -79,14 +79,17 @@ class ZopimChat extends Component {
     }
 
     return (
-      <button onClick={this.onClick}>
-        CHAT
-      </button>
+      <div>
+        {
+          React.cloneElement(this.props.children, { onClick: this.onClick })
+        }
+      </div>
     );
   }
 }
 
 ZopimChat.propTypes = {
+  children: React.PropTypes.element.isRequired,
   countryName: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
