@@ -3,9 +3,7 @@
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "react-google-tag-manager": "^2.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-jest": "^19.0.0",
