@@ -11,9 +11,7 @@ class ZopimChat extends Component {
 
   componentWillMount() {
     zopim(document, 'script');
-  }
 
-  componentDidMount() {
     this.countryConfig();
     this.visibilityConfig();
   }
