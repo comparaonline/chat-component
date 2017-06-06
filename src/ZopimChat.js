@@ -14,20 +14,15 @@ class ZopimChat extends Component {
   }
 
   componentDidMount() {
-    const interval = setInterval(() => {
-      if (window.$zopim) {
-        clearInterval(interval);
-        this.countryConfig(window.$zopim);
-        this.visibilityConfig(window.$zopim);
-      }
-    }, 100);
+    this.countryConfig();
+    this.visibilityConfig();
   }
 
   onClick() {
     return this.showChat();
   }
 
-  countryConfig(globalZopim) {
+  countryConfig() {
     const {
       language,
       countryName,
@@ -36,41 +31,45 @@ class ZopimChat extends Component {
       offlineFormGreetings
     } = this.props;
 
-    const chat = globalZopim.livechat;
+    window.$zopim(() => {
+      const chat = window.$zopim.livechat;
 
-    chat.setLanguage(language);
-    chat.window.setTitle(title);
-    chat.concierge.setTitle(conciergeTitle);
-    chat.offlineForm.setGreetings(offlineFormGreetings);
+      chat.setLanguage(language);
+      chat.window.setTitle(title);
+      chat.concierge.setTitle(conciergeTitle);
+      chat.offlineForm.setGreetings(offlineFormGreetings);
 
-    chat.departments.filter('');
-    chat.departments.setVisitorDepartment(countryName);
+      chat.departments.filter('');
+      chat.departments.setVisitorDepartment(countryName);
 
-    chat.setOnConnected(() => {
-      chat.setStatus(
-        chat.departments.getDepartment(countryName).status
-      );
+      chat.setOnConnected(() => {
+        chat.setStatus(
+          chat.departments.getDepartment(countryName).status
+        );
+      });
     });
   }
 
-  visibilityConfig(globalZopim) {
-    const chat = globalZopim.livechat;
+  visibilityConfig() {
+    window.$zopim(() => {
+      const chat = window.$zopim.livechat;
 
-    this.hideChat = () => globalZopim(() => {
-      chat.hideAll();
-      this.setState({ isOpen: false });
+      this.hideChat = () => window.$zopim(() => {
+        chat.hideAll();
+        this.setState({ isOpen: false });
+      });
+
+      this.showChat = () => window.$zopim(() => {
+        chat.window.show();
+        this.setState({ isOpen: true });
+      });
+
+      window.$zopim(() => {
+        chat.window.onHide(() => this.hideChat());
+      });
+
+      this.hideChat();
     });
-
-    this.showChat = () => globalZopim(() => {
-      chat.window.show();
-      this.setState({ isOpen: true });
-    });
-
-    globalZopim(() => {
-      chat.window.onHide(() => this.hideChat());
-    });
-
-    this.hideChat();
   }
 
   render() {
