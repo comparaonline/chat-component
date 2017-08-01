@@ -16,6 +16,7 @@ $ npm install --save comparaonline/chat-component
     language={language}
     title={title}
     conciergeTitle={conciergeTitle}
+    prechatFormGreetings={prechatFormGreetings}
     offlineFormGreetings={offlineFormGreetings}
   />
 ```
@@ -26,4 +27,5 @@ Where the possible options are:
 * `language`: Two letter language ISO code (i.e `es` or `pt`).
 * `title`: Text for the main top bar of the chat window.
 * `conciergeTitle`: Text shown once a chat is initiated.
+* `prechatFormGreetings`: Set the greeting message displayed on the pre-chat form..
 * `offlineFormGreetings`: Text shown when the chat deparment status is offline.
