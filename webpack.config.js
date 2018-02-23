@@ -33,7 +33,7 @@ const config = {
       compress: { warnings: false },
       output: { comments: false },
       screw_ie8: true,
-      sourceMap: false
+      sourceMap: true
     }),
     new WebpackCleanupPlugin()
   ]

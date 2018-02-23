@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; // eslint-disable-line
 
 import zopim from './scripts/zopim';
 
@@ -12,7 +12,7 @@ class ZopimChat extends Component {
   }
 
   componentWillMount() {
-    zopim(document, 'script');
+    this.props.zopimFn(document, 'script');
 
     this.countryConfig();
     this.visibilityConfig();
@@ -29,7 +29,7 @@ class ZopimChat extends Component {
       title,
       conciergeTitle,
       prechatFormGreetings,
-      offlineFormGreetings
+      offlineFormGreetings,
     } = this.props;
 
     window.$zopim(() => {
@@ -44,11 +44,9 @@ class ZopimChat extends Component {
       chat.departments.filter('');
       chat.departments.setVisitorDepartment(countryName);
 
-      chat.setOnConnected(() => {
-        chat.setStatus(
-          chat.departments.getDepartment(countryName).status
-        );
-      });
+      chat.setOnConnected(() => (
+        chat.setStatus(chat.departments.getDepartment(countryName).status)
+      ));
     });
   }
 
@@ -66,28 +64,39 @@ class ZopimChat extends Component {
         this.setState({ isOpen: true });
       });
 
-      window.$zopim(() => {
-        chat.window.onHide(() => this.hideChat());
-      });
+      if (this.props.children) {
+        window.$zopim(() => (
+          chat.window.onHide(() => this.hideChat())
+        ));
 
-      this.hideChat();
+        this.hideChat();
+      }
     });
   }
 
   render() {
-    return !this.state.isOpen &&
-      React.cloneElement(this.props.children, { onClick: this.onClick });
+    if (this.props.children && !this.state.isOpen) {
+      return React.cloneElement(this.props.children, { onClick: this.onClick });
+    }
+
+    return null;
   }
 }
 
+ZopimChat.defaultProps = {
+  children: null,
+  zopimFn: zopim,
+};
+
 ZopimChat.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: PropTypes.node,
+  zopimFn: PropTypes.func,
   countryName: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   conciergeTitle: PropTypes.string.isRequired,
   prechatFormGreetings: PropTypes.string.isRequired,
-  offlineFormGreetings: PropTypes.string.isRequired
+  offlineFormGreetings: PropTypes.string.isRequired,
 };
 
 export default ZopimChat;
