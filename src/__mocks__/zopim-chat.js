@@ -20,4 +20,5 @@ export default () => ({
   },
   setOnConnected: jest.fn(),
   hideAll: jest.fn(),
+  addTags: jest.fn(),
 });

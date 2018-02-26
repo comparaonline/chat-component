@@ -30,6 +30,7 @@ class ZopimChat extends Component {
       conciergeTitle,
       prechatFormGreetings,
       offlineFormGreetings,
+      tags,
     } = this.props;
 
     window.$zopim(() => {
@@ -47,6 +48,8 @@ class ZopimChat extends Component {
       chat.setOnConnected(() => (
         chat.setStatus(chat.departments.getDepartment(countryName).status)
       ));
+
+      tags.forEach(chat.addTags);
     });
   }
 
@@ -86,6 +89,7 @@ class ZopimChat extends Component {
 ZopimChat.defaultProps = {
   children: null,
   zopimFn: zopim,
+  tags: [],
 };
 
 ZopimChat.propTypes = {
@@ -97,6 +101,7 @@ ZopimChat.propTypes = {
   conciergeTitle: PropTypes.string.isRequired,
   prechatFormGreetings: PropTypes.string.isRequired,
   offlineFormGreetings: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ZopimChat;
