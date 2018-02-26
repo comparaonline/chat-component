@@ -1,6 +1,11 @@
 module.exports = {
-  'extends': '@comparaonline/eslint-config-react',
+  'extends': 'airbnb',
   'env': {
-    'browser': true
+    'browser': true,
+    "jest/globals": true
+  },
+  "plugins": ["jest"],
+  "rules": {
+    "react/jsx-filename-extension": 0
   }
 }
