@@ -27,8 +27,8 @@
     "webpack-cleanup-plugin": "^0.5.1"
   },
   "peerDependencies": {
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2"
+    "react": "^15.6.2 || ^16",
+    "react-dom": "^15.6.2 || ^16"
   },
   "scripts": {
     "lint": "eslint ./src",
