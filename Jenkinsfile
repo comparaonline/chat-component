@@ -30,8 +30,7 @@ def test_function() {
   docker.image(env.TEST_DOCKER_IMAGE).inside('-u root') {
     sh 'node --version'
     sh 'curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION'
-    sh 'export PATH=\"$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH\"'
-    sh 'yarn --version'
+    sh '$HOME/.yarn/bin/yarn --version'
   }
 }
 
